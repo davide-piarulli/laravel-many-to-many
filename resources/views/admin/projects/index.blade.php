@@ -118,13 +118,8 @@
                     <label class="form-label">Tecnologia: </label>
                     <div class="btn-group btn-group-sm" role="group">
                       @foreach ($technologies as $technology)
-                        <input
-                        name="technologies[]"
-                          type="checkbox"
-                          class="btn-check"
-                          id="technology_{{ $technology->id }}"
-                          autocomplete="off"
-                          value="{{ $technology->id }}">
+                        <input name="technologies[]" type="checkbox" class="btn-check"
+                          id="technology_{{ $technology->id }}" autocomplete="off" value="{{ $technology->id }}">
                         <label class="btn btn-outline-primary"
                           for="technology_{{ $technology->id }}">{{ $technology->name }}</label>
                       @endforeach
@@ -214,9 +209,13 @@
                 <i class="fa-solid fa-eye"></i>
               </a>
 
-              <button class="btn btn-warning me-3 " onclick="submitForm({{ $project->id }})">
+              <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-warning me-3">
                 <i class="fa-solid fa-pencil"></i>
-              </button>
+              </a>
+
+              {{-- <button class="btn btn-warning me-3 " onclick="submitForm({{ $project->id }})">
+                <i class="fa-solid fa-pencil"></i>
+              </button> --}}
 
               <form action="{{ route('admin.projects.destroy', $project) }}" method="post"
                 onsubmit="return confirm('Sei sicuro di voler eliminare il progetto?')">
@@ -239,10 +238,10 @@
 
   </div>
   <script>
-    function submitForm(id) {
-      const form = document.getElementById(`form-edit-${id}`);
-      form.submit();
-    }
+    // function submitForm(id) {
+    //   const form = document.getElementById(`form-edit-${id}`);
+    //   form.submit();
+    // }
 
     function showImage(event) {
       const thumb = document.getElementById('thumb');

@@ -98,9 +98,15 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        $title = 'Modifica progetto';
+        $route = route('admin.projects.update', $project);
+        $button = 'Aggiorna progetto';
+        $method = 'PUT';
+        $types = Type::all();
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('title', 'route', 'project', 'button', 'method', 'types', 'technologies'));
     }
 
     /**
