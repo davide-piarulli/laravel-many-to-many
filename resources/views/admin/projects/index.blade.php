@@ -155,6 +155,7 @@
           <th scope="col">Immagine</th>
           <th scope="col">Link</th>
           <th scope="col">Tipo</th>
+          <th scope="col">Tecnologia</th>
           <th scope="col">Descrizione</th>
           <th scope="col">Azioni</th>
         </tr>
@@ -170,7 +171,14 @@
               <th scope="row"><input type="text" value="{{ $project->title }}" name="title"></th>
               <td><img src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->title }}"></td>
               <td><input type="text" value="{{ $project->link }}" name="link"></td>
-              <td><input type="text" value="{{ $project->type->name }}" name="type"></td>
+              <td><input type="text" value="{{ $project->type }}" name="type"></td>
+              <td>
+                @forelse ($project->technologies as $technology)
+                  <span class="badge text-bg-primary">{{ $technology->name }}</span>
+                @empty
+                  <span>Nessuna tecnologia</span>
+                @endforelse ($project->technologies as $technology)
+              </td>
               <td><input type="text" value="{{ $project->description }}" name="description"></td>
             </form>
 
