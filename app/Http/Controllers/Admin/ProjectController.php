@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 use App\Functions\Helper;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,10 @@ class ProjectController extends Controller
             $projects = Project::orderByDesc('id')->paginate(10);
         }
         $types = Type::all();
+        $technologies = Technology::all();
 
 
-        return view('admin.projects.index', compact('projects', 'types'));
+        return view('admin.projects.index', compact('projects', 'types', 'technologies'));
     }
 
     /**
@@ -36,8 +38,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-
-        return view('projects.store');
+        return view('admin.projects.index');
     }
 
     /**
@@ -67,9 +68,16 @@ class ProjectController extends Controller
             $new_project = new Project();
             $form_data['slug'] = Helper::createSlug($form_data['title'], Project::class);
 
+
+
             $new_project->fill($form_data);
             $new_project->save();
 
+            // l'associazione many to many deve avvenire topo il salvataggio
+            // se trovo la chiave technologies, inserisco la relazione nella tabella pivot
+            if (array_key_exists('technologies', $form_data)) {
+                $new_project->technologies()->attach($form_data['technologies']);
+            }
             return redirect()->route('admin.projects.index')->with('success', 'Progetto inserito correttamente');
         }
     }
@@ -77,9 +85,14 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ProjectRequest $request)
+    public function show(Project $project)
     {
-        return view('admin.projects.show', compact('request'));
+        $project = Project::find($project->id);
+        if ($project) {
+            return view('admin.projects.show', compact('project'));
+        } else {
+            return redirect()->route('admin.projects.index')->with('error', 'Project non trovato');
+        }
     }
 
     /**

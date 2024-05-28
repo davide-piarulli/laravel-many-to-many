@@ -98,7 +98,7 @@
                   <div class="mb-3">
 
                     <label for="type" class="form-label">Tipo</label>
-                    <select name="type_id" class="form-select w-25" aria-label="Default select example">
+                    <select name="type_id" class="form-select w-50" aria-label="Default select example">
 
                       <option value="">Seleziona un tipo</option>
                       @foreach ($types as $type)
@@ -107,6 +107,29 @@
                         </option>
                       @endforeach
                     </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+
+                    <label class="form-label">Tecnologia: </label>
+                    <div class="btn-group btn-group-sm" role="group">
+                      @foreach ($technologies as $technology)
+                        <input
+                        name="technologies[]"
+                          type="checkbox"
+                          class="btn-check"
+                          id="technology_{{ $technology->id }}"
+                          autocomplete="off"
+                          value="{{ $technology->id }}">
+                        <label class="btn btn-outline-primary"
+                          for="technology_{{ $technology->id }}">{{ $technology->name }}</label>
+                      @endforeach
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -172,18 +195,24 @@
               <td><img src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->title }}"></td>
               <td><input type="text" value="{{ $project->link }}" name="link"></td>
               <td><input type="text" value="{{ $project->type }}" name="type"></td>
+
               <td>
                 @forelse ($project->technologies as $technology)
                   <span class="badge text-bg-primary">{{ $technology->name }}</span>
                 @empty
                   <span>Nessuna tecnologia</span>
-                @endforelse ($project->technologies as $technology)
+                @endforelse
               </td>
+
               <td><input type="text" value="{{ $project->description }}" name="description"></td>
             </form>
 
             {{-- Actions Edit e Delete --}}
             <td class="icons d-flex ">
+
+              <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-success me-3">
+                <i class="fa-solid fa-eye"></i>
+              </a>
 
               <button class="btn btn-warning me-3 " onclick="submitForm({{ $project->id }})">
                 <i class="fa-solid fa-pencil"></i>
