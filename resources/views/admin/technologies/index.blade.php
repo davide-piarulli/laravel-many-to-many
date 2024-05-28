@@ -65,7 +65,7 @@
             </td>
 
             <td class="icons d-flex ">
-              <a href="{{ route('admin.technologies.edit', $technology) }}" class="btn btn-warning">
+              <a href="{{ route('admin.technologies.edit', $technology) }}" class="btn btn-warning me-3">
                 <i class="fa-solid fa-pencil"></i>
               </a>
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Technology;
+use App\Functions\Helper as Help;
+use App\Http\Requests\TechnologyRequest;
 
 
 class TechnologyController extends Controller
@@ -23,15 +25,27 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.technologies.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TechnologyRequest $request)
     {
-        //
+        $form_data = $request->all();
+        $exist = Technology::where('name', $form_data['name'])->first();
+        if ($exist) {
+            return redirect()->route('admin.technologies.create')->with('error', 'Nome della tecnologia già esiste');
+        } else {
+            $new_technology = new Technology();
+            $form_data['slug'] = Help::createSlug($form_data['name'], Technology::class);
+            //? Riempio e salvo
+            $new_technology->fill($form_data);
+            $new_technology->save();
+            //? Ridireziono
+            return redirect()->route('admin.technologies.index')->with('success', 'Tecnologia aggiunta correttamente!');
+        }
     }
 
     /**
@@ -61,8 +75,9 @@ class TechnologyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Technology $technology)
     {
-        //
+        $technology->delete();
+        return redirect()->route('admin.technologies.index')->with('deleted', 'La tecnologia è stata cancellata');
     }
 }
