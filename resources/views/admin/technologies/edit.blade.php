@@ -8,7 +8,7 @@
         <div class="col">
           <div class="mb-3">
             <label for="title" class="form-label">Nome Tecnologia (*)</label>
-            <input type="text" class="form-control @error('title') is-invalid @enderror" id="name" name="name"
+            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
               value="{{ old('name', $technology->name) }}">
             @error('name')
               <small class="text-danger">
