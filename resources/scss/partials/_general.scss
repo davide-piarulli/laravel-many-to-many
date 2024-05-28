@@ -1,0 +1,31 @@
+
+:root{
+    --bg-white-fake: #f8f9fa;
+    --bg-input : #e5e5e5;
+    --bg-chip: #165bba;
+  }
+
+  body{
+    font-family: 'Roboto', sans-serif;
+    // width: 100vw;
+  }
+
+  img{
+    width: 100%;
+  }
+
+  .dp-container{
+    // width: 100%;
+    height: 100vh;
+    .content{
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+    }
+  }
+
+  @media screen and (width: 768px){
+    .sidebar{
+      width: 70px;
+    }
+  }

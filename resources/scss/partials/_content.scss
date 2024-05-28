@@ -1,0 +1,53 @@
+  /*********** MAIN CONTENT ******************/
+  .main-content{
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+  }
+
+
+  /********** HEADER MAIN CONTENT **********/
+
+ .content-header{
+    height: 100px;
+    background-color: #1b72e8;
+}
+.dp-btn{
+    border: 1px solid white;
+    background-color: #1b72e8;
+    color: white;
+    height: 35px;
+    width: 35px;
+    padding: 5px;
+    margin-left: 15px;
+    border-radius: 5px;
+    &:hover{
+        background-color: #023986;
+    }
+  }
+.offcanvas {
+    width: 800px;
+  }
+
+
+
+  /************** CONTENT BODY ***************/
+
+
+
+  .content-body .table .icons {
+    transform: translateX(-10px);
+  }
+
+  .content-body .table img{
+    width: 30px;
+    margin: 0 10px;
+  }
+
+  .content-body .users-title{
+    padding: 20px 17px;
+  }
+
+  input{
+    border:none;
+  }
