@@ -42,19 +42,16 @@
         <div class="col">
           <div class="mb-3">
 
-            <label class="form-label">Tecnologia: </label>
-            <div class="btn-group btn-group-sm" role="group">
-              @foreach ($technologies as $technology)
-                <input name="technologies[]" id="technology_{{ $technology->id }}" class="btn-check" autocomplete="off"
-                  type="checkbox" value="{{ $technology->id }}"
-                  @if (
-                      ($errors->any() && in_array($technology->id, old('technologies', []))) ||
-                          (!$errors->any() && $project?->technologies->contains($technology))) checked @endif>
-                <label class="btn btn-outline-primary"
-                  for="technology_{{ $technology->id }}">{{ $technology->name }}</label>
-              @endforeach
+            <label class="form-label">Tipo: </label>
+            <select name="type_id" class="form-select " aria-label="Default select example">
 
-            </div>
+              <option value="">Seleziona un tipo</option>
+              @foreach ($types as $type)
+                <option value="{{ $type->id }}" @if (old('type_id', $project?->type->id) == $type->id) selected @endif>
+                  {{ $type->name }}
+                </option>
+              @endforeach
+            </select>
           </div>
         </div>
       </div>
@@ -62,7 +59,17 @@
         <div class="col mb-3">
 
           <label for="title" class="form-label">Tecnologia</label>
+          <div class="btn-group btn-group-sm" role="group">
+            @foreach ($technologies as $technology)
+              <input name="technologies[]" id="technology_{{ $technology->id }}" class="btn-check" autocomplete="off"
+                type="checkbox" value="{{ $technology->id }}" @if (
+                    ($errors->any() && in_array($technology->id, old('technologies', []))) ||
+                        (!$errors->any() && $project?->technologies->contains($technology))) checked @endif>
+              <label class="btn btn-outline-primary"
+                for="technology_{{ $technology->id }}">{{ $technology->name }}</label>
+            @endforeach
 
+          </div>
         </div>
       </div>
       <div class="row">
