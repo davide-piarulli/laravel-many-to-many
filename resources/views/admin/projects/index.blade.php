@@ -29,17 +29,20 @@
   <!-- card progetti -->
   <div class="card my-4 mx-2">
     <div class="card-header d-flex">
+
       <div class="col align-content-center h-100 py-3">
         <h2>Progetti</h2>
       </div>
 
       {{-- Searchbar --}}
-      <form action="{{ route('admin.projects.index') }}" method="GET" role="search">
-        <div class="input-group w-100">
-          <input type="search" name="toSearch" class="form-control" placeholder="Cerca progetto...">
-          <button type="submit" class="input-group-text">Cerca</button>
-        </div>
-      </form>
+      <div class="col align-content-center h-100 py-3">
+        <form action="{{ route('admin.projects.index') }}" method="GET" role="search">
+          <div class="input-group w-100">
+            <input type="search" name="toSearch" class="form-control" placeholder="Cerca progetto...">
+            <button type="submit" class="input-group-text">Cerca</button>
+          </div>
+        </form>
+      </div>
       {{-- /Searchbar --}}
 
       {{-- aggiungi nuovo progetto --}}
@@ -186,10 +189,10 @@
               id="form-edit-{{ $project->id }}">
               @csrf
               @method('PUT')
-              <th scope="row"><input type="text" value="{{ $project->title }}" name="title"></th>
+              <th>{{ $project->title }}</th>
               <td><img src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->title }}"></td>
-              <td><input type="text" value="{{ $project->link }}" name="link"></td>
-              <td><input type="text" value="{{ $project->type }}" name="type"></td>
+              <td>{{ $project->link }}</td>
+              <td>{{ $project->type->name }}</td>
 
               <td>
                 @forelse ($project->technologies as $technology)
@@ -199,10 +202,10 @@
                 @endforelse
               </td>
 
-              <td><input type="text" value="{{ $project->description }}" name="description"></td>
+              <td>{{ $project->description }}</td>
             </form>
 
-            {{-- Actions Edit e Delete --}}
+            {{-- Actions Show, Edit e Delete --}}
             <td class="icons d-flex ">
 
               <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-success me-3">
@@ -212,10 +215,6 @@
               <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-warning me-3">
                 <i class="fa-solid fa-pencil"></i>
               </a>
-
-              {{-- <button class="btn btn-warning me-3 " onclick="submitForm({{ $project->id }})">
-                <i class="fa-solid fa-pencil"></i>
-              </button> --}}
 
               <form action="{{ route('admin.projects.destroy', $project) }}" method="post"
                 onsubmit="return confirm('Sei sicuro di voler eliminare il progetto?')">
@@ -238,11 +237,6 @@
 
   </div>
   <script>
-    // function submitForm(id) {
-    //   const form = document.getElementById(`form-edit-${id}`);
-    //   form.submit();
-    // }
-
     function showImage(event) {
       const thumb = document.getElementById('thumb');
       thumb.src = URL.createObjectURL(event.target.files[0]);

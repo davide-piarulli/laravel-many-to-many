@@ -1,17 +1,21 @@
 @extends('layouts.admin')
 @section('content')
   <div class="container">
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
+    <div class="card m-5">
+      <img src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->title }}">
       <div class="card-body">
-        <h5>Titolo progetto: {{ $project->title }}</h5>
-        <h5>Tipo: {{ $project->type }}</h5>
-        <h5>Tecnologia:
-          @forelse ($project->technologies as $technology)
-            <span class="badge text-bg-primary">{{ $technology->name }}</span>
-          @empty
-            <span>Nessuna tecnologia</span>
-          @endforelse
+        <h5><b>Titolo progetto:</b> {{ $project->title }}</h5>
+        <h5><b>Tipo:</b> {{ $project->type->name }}</h5>
+        <h5><b>Tecnologia:</b>
+          <div>
+            @forelse ($project->technologies as $technology)
+              {{-- <a href="{{ route('admin.technologies.show', $technology) }}"> --}}
+                <span class="badge text-bg-primary">{{ $technology->name }}</span>
+              {{-- </a> --}}
+            @empty
+              <span>Nessuna tecnologia</span>
+            @endforelse
+          </div>
         </h5>
 
 

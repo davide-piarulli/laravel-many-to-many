@@ -39,7 +39,7 @@
 
   <!-- bottom sidebar -->
   <div>
-    <ul class="nav nav-pills flex-column mt-2 ">
+    <ul class="nav nav-pills flex-column mb-3">
 
       <li class="nav-item">
         <a href="{{ route('profile.edit') }}" class="nav-link text-white">
