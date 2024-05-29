@@ -142,6 +142,14 @@ class ProjectController extends Controller
 
         $project->update($form_data);
 
+        if (array_key_exists('technologies', $form_data)) {
+            // aggiorno tutte le relazioni elimimando quelle che eventualmente non ci sono più
+            $project->technologies()->sync($form_data['technologies']);
+        }else{
+            // se non sono presenti ID dentro Technologies elimino tutte le relazioni con technologies
+            $project->technologies()->detach();
+        }
+
         return redirect()->route('admin.projects.index', $project);
     }
 

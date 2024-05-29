@@ -192,7 +192,9 @@
               <th>{{ $project->title }}</th>
               <td><img src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->title }}"></td>
               <td>{{ $project->link }}</td>
-              <td>{{ $project->type->name }}</td>
+              <td>
+                {{-- {{ $project->type->name }} --}}
+              </td>
 
               <td>
                 @forelse ($project->technologies as $technology)
