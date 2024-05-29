@@ -139,7 +139,8 @@
                     <input class="form-control" id="thumb" type="file" name="img" value="{{ old('img') }}"
                       onchange="showImage(event)" placeholder="immagine mancante">
                     <img class="thumb img-thumbnail w-25 my-2" onerror="this.src='/img/noimg.jpg'" id="thumb"
-                      {{-- src="{{ asset('storage/' . $project->img) }}" --}}>
+                      {{-- src="{{ asset('storage/' . $project->img) }}" --}}
+                      >
                     @error('img')
                       <small class="text-danger">
                         {{ $message }}
@@ -173,7 +174,6 @@
       <thead>
         <tr>
           <th scope="col">Nome Progetto</th>
-          <th scope="col">Immagine</th>
           <th scope="col">Link</th>
           <th scope="col">Tipo</th>
           <th scope="col">Tecnologia</th>
@@ -190,10 +190,9 @@
               @csrf
               @method('PUT')
               <th>{{ $project->title }}</th>
-              <td><img src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->title }}"></td>
               <td>{{ $project->link }}</td>
               <td>
-                {{-- {{ $project->type->name }} --}}
+                {{ $project->type->name }}
               </td>
 
               <td>

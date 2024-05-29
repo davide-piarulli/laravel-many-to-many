@@ -49,6 +49,7 @@ class ProjectController extends Controller
         // prima di inserire un nuovo progetto, devo verificare che non sia già presente
         // dump($request->all());
         $form_data = $request->all();
+
         // verifico esistenza dell'immagine
         if (array_key_exists('img', $form_data)) {
             // salvo img nello storage
@@ -125,19 +126,12 @@ class ProjectController extends Controller
             $original_name = $request->file('img')->getClientOriginalName();
             $form_data['img'] = $img_path;
             $form_data['img_original_name'] = $original_name;
-            // dump($img_path);
         }
 
-        $exist = Project::where('title', $form_data['title'])->first();
-
-        if ($exist) {
-            return redirect()->route('admin.projects.index')->with('error', 'Progetto già esistente');
+        if ($form_data['title'] === $project->title) {
+            $form_data['slug'] = $project->slug;
         } else {
-            if ($form_data['title'] === $project->title) {
-                $form_data['slug'] = $project->slug;
-            } else {
-                $form_data['slug'] = Helper::createSlug($form_data['title'], Project::class);
-            }
+            $form_data['slug'] = Helper::createSlug($form_data['title'], Project::class);
         }
 
         $project->update($form_data);
@@ -145,7 +139,7 @@ class ProjectController extends Controller
         if (array_key_exists('technologies', $form_data)) {
             // aggiorno tutte le relazioni elimimando quelle che eventualmente non ci sono più
             $project->technologies()->sync($form_data['technologies']);
-        }else{
+        } else {
             // se non sono presenti ID dentro Technologies elimino tutte le relazioni con technologies
             $project->technologies()->detach();
         }

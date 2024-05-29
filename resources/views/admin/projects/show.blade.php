@@ -2,7 +2,8 @@
 @section('content')
   <div class="container">
     <div class="card m-5">
-      <img src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->title }}">
+      <img class="card-img-top img-fluid" src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->title }}"
+        onerror="this.src='/img/noimg.jpg'">
       <div class="card-body">
         <h5><b>Titolo progetto:</b> {{ $project->title }}</h5>
         <h5><b>Tipo:</b> {{ $project->type->name }}</h5>
@@ -10,7 +11,7 @@
           <div>
             @forelse ($project->technologies as $technology)
               {{-- <a href="{{ route('admin.technologies.show', $technology) }}"> --}}
-                <span class="badge text-bg-primary">{{ $technology->name }}</span>
+              <span class="badge text-bg-primary">{{ $technology->name }}</span>
               {{-- </a> --}}
             @empty
               <span>Nessuna tecnologia</span>
